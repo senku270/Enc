@@ -41,9 +41,7 @@ async def start_aria2p():
         _bot.sas = True
         await logger(f"Aria2 is set and marked online: {_bot.sas}", important=True)
 
-    except Exception as e:
-        _bot.sas = False
-        await logger(f"Aria2 connection failed: {e}", critical=True)
+    
 
 
 def wait_for_port(host, port, timeout=10):
@@ -70,10 +68,7 @@ async def start_rpc():
             await start_aria2p()
             await logger("Aria2 RPC server reachable after start", critical=True)
 
-        else:
-            _bot.sas = False
-            await logger("Aria2 RPC server not reachable after start", critical=True)
-
+        
 
 async def start_qbit():
     os.system(
@@ -108,6 +103,7 @@ async def onrestart():
 
 async def onstart():
     try:
+        await start_rpc()
         for i in conf.OWNER.split():
             try:
                 await tele.send_message(int(i), f"**I'm {enquip()} {enmoji()}**")
