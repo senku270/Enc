@@ -41,7 +41,9 @@ async def start_aria2p():
         _bot.sas = True
         await logger(f"Aria2 is set and marked online: {_bot.sas}", important=True)
 
-    
+    except Exception as e:
+        _bot.sas = False
+        await logger(f"Aria2 connection failed: {e}", critical=True)
 
 
 def wait_for_port(host, port, timeout=10):
@@ -67,6 +69,10 @@ async def start_rpc():
             await asyncio.sleep(1)  # slight buffer
             await start_aria2p()
             await logger("Aria2 RPC server reachable after start", critical=True)
+
+        else:
+            _bot.sas = False
+            await logger("Aria2 RPC server not reachable after start", critical=True)
 
         
 
@@ -119,7 +125,6 @@ async def onstart():
             await tele.send_message(
                 dev,
                 f"**Aria2:** `{'Online' if _bot.sas else 'Offline/Not_ready'}`"
-                f"\n**Qbit:** `{'Online' if _bot.sqs else 'Offline/Not_ready'}`",
             )
         except Exception:
             await logger(Exception)
@@ -143,6 +148,7 @@ async def on_termination():
     # More cleanup code?
     exit(0)
 
+_bot.sas = True
 
 async def on_startup():
     try: 
