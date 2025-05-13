@@ -22,7 +22,14 @@ async def channel_log(Exception: Exception, e: str):
             LOGS.info(error)
             LOGS.info(traceback.format_exc())
 
+async def logger(Exception: Exception = None, e: str = None, critical=False, important=False):
+    # Handle log to terminal
+    if critical:
+        logging.critical(e or str(Exception))
+    elif important:
+        logging.info(f"[IMPORTANT] {e or str(Exception)}")
+    else:
+        logging.info(e or str(Exception))
 
-async def logger(Exception: Exception = None, e: str = None, critical=False):
-    log(Exception, e, critical)
+    # Forward to your custom log handler
     await channel_log(Exception, e)
