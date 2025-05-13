@@ -29,13 +29,13 @@ async def start_aria2p():
                 "https://nyaa.si/download/1752639.torrent",
                 {"dir": temp_dir}
             )
-            logger(f"Aria2 add success: {download}", important=True)
+            await logger(f"Aria2 add success: {download}", important=True)
             await asyncio.sleep(2)
             downloads = aria2.get_downloads()
             await asyncio.sleep(3)
             aria2.remove(downloads, force=True, files=True, clean=True)
         except Exception as e:
-            logger(f"Failed to add/remove torrent: {e}", critical=True)
+            await logger(f"Failed to add/remove torrent: {e}", critical=True)
 
         _bot.aria2 = aria2
         _bot.sas = True
@@ -147,7 +147,6 @@ async def on_termination():
 
 async def on_startup():
     try:
-        scheduler.start()
         asyncio.create_task(autostat())
         asyncio.create_task(start_rpc())
         loop = asyncio.get_running_loop()
