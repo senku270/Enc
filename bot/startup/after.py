@@ -39,7 +39,7 @@ async def start_qbit():
         f"qbittorrent-nox -d --webui-port={conf.QBIT_PORT2} --profile={os.getcwd()}/qbit  --configuration=1"
     )
     # TO_DO: Properly check if qbit is fully operational.
-    _bot.sqs = True
+    _bot.sqs = False
 
 
 async def start_rpc():
