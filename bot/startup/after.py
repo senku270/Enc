@@ -1,3 +1,5 @@
+import socket
+import time
 from bot.config import _bot, conf
 from bot.fun.emojis import enmoji, enmoji2
 from bot.fun.quips import enquip, enquip2
@@ -15,20 +17,59 @@ async def start_aria2p():
         aria2 = aria2p.API(
             aria2p.Client(host="http://localhost", port=conf.ARIA2_PORT, secret="")
         )
-        aria2.add(
-            "https://nyaa.si/download/1752639.torrent",
-            {"dir": f"{os.getcwd()}/temp"},
-        )
-        await asyncio.sleep(2)
-        downloads = aria2.get_downloads()
-        await asyncio.sleep(3)
-        aria2.remove(downloads, force=True, files=True, clean=True)
+        aria2.get_version()  # Confirm connection
+
+        # Optional: Ensure temp dir exists
+        temp_dir = f"{os.getcwd()}/temp"
+        os.makedirs(temp_dir, exist_ok=True)
+
+        # Test download
+        try:
+            download = aria2.add(
+                "https://nyaa.si/download/1752639.torrent",
+                {"dir": temp_dir}
+            )
+            logger(f"Aria2 add success: {download}", important=True)
+            await asyncio.sleep(2)
+            downloads = aria2.get_downloads()
+            await asyncio.sleep(3)
+            aria2.remove(downloads, force=True, files=True, clean=True)
+        except Exception as e:
+            logger(f"Failed to add/remove torrent: {e}", critical=True)
+
         _bot.aria2 = aria2
         _bot.sas = True
 
-    except Exception:
-        await logger(Exception, critical=True)
-        # return None
+    except Exception as e:
+        _bot.sas = False
+        await logger(f"Aria2 connection failed: {e}", critical=True)
+
+
+def wait_for_port(host, port, timeout=10):
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            with socket.create_connection((host, port), timeout=1):
+                return True
+        except OSError:
+            time.sleep(0.5)
+    return False
+
+
+async def start_rpc():
+    os.system(
+        f"aria2c --enable-rpc=true --rpc-max-request-size=1024M --rpc-listen-port={conf.ARIA2_PORT} "
+        "--seed-time=0 --follow-torrent=mem --summary-interval=0 --daemon=true --allow-overwrite=true "
+        "--user-agent=Wget/1.12"
+    )
+
+    if not _bot.started:
+        if wait_for_port("localhost", conf.ARIA2_PORT):
+            await asyncio.sleep(1)  # slight buffer
+            await start_aria2p()
+        else:
+            _bot.sas = False
+            await logger("Aria2 RPC server not reachable after start", critical=True)
 
 
 async def start_qbit():
@@ -40,17 +81,6 @@ async def start_qbit():
     )
     # TO_DO: Properly check if qbit is fully operational.
     _bot.sqs = False
-
-
-async def start_rpc():
-    os.system(
-        f"aria2c --enable-rpc=true --rpc-max-request-size=1024M --rpc-listen-port={conf.ARIA2_PORT} "
-        "--seed-time=0 --follow-torrent=mem --summary-interval=0 --daemon=true --allow-overwrite=true "
-        "--user-agent=Wget/1.12"
-    )
-    if not _bot.started:
-        await asyncio.sleep(1)
-        await start_aria2p()
 
 
 async def onrestart():
