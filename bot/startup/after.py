@@ -39,6 +39,8 @@ async def start_aria2p():
 
         _bot.aria2 = aria2
         _bot.sas = True
+        await logger(" started aria2c ", critical=True)
+
 
     except Exception as e:
         _bot.sas = False
@@ -67,6 +69,8 @@ async def start_rpc():
         if wait_for_port("localhost", conf.ARIA2_PORT):
             await asyncio.sleep(1)  # slight buffer
             await start_aria2p()
+            await logger("Aria2 RPC server reachable after start", critical=True)
+
         else:
             _bot.sas = False
             await logger("Aria2 RPC server not reachable after start", critical=True)
