@@ -39,8 +39,7 @@ async def start_aria2p():
 
         _bot.aria2 = aria2
         _bot.sas = True
-        await logger(" started aria2c ", critical=True)
-
+        await logger(f"Aria2 is set and marked online: {_bot.sas}", important=True)
 
     except Exception as e:
         _bot.sas = False
