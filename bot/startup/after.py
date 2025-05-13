@@ -149,9 +149,9 @@ async def on_termination():
 
 
 async def on_startup():
-    try:
-        asyncio.create_task(autostat())
+    try: 
         asyncio.create_task(start_rpc())
+        asyncio.create_task(autostat())
         loop = asyncio.get_running_loop()
         for signame in {"SIGINT", "SIGTERM", "SIGABRT"}:
             loop.add_signal_handler(
