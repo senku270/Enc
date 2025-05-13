@@ -1,4 +1,5 @@
 import traceback
+import logging 
 
 from bot import LOGS, conf, tele
 from bot.fun.emojis import enmoji
