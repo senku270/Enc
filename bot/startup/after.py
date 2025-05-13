@@ -17,7 +17,7 @@ async def start_aria2p():
         aria2 = aria2p.API(
             aria2p.Client(host="http://localhost", port=conf.ARIA2_PORT, secret="")
         )
-        aria2.get_version()  # Confirm connection
+        aria2.get_global_stat()  # Confirm connection
 
         # Optional: Ensure temp dir exists
         temp_dir = f"{os.getcwd()}/temp"
