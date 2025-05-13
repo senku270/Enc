@@ -5,7 +5,7 @@ aria2p
 country_converter
 emoji-country-flag
 feedparser
-html_telegraph_poster
+html-telegraph-poster
 humanize
 lxml[html_clean]
 telethon
