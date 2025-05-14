@@ -229,7 +229,7 @@ async def thing():
                 raise (AlreadyDl)
 
             sdt = time.time()
-            # await mssg_r.edit("`Waiting for download to complete.`")
+            await mssg_r.edit("`Waiting for download to complete.`")
             download = downloader(
                 sender_id, op, _id, uri=einfo.uri, dl_info=True, qbit=einfo.qbit
             )
@@ -325,7 +325,7 @@ async def thing():
         einfo._current = name
         cmd = ffmpeg.format(dl, out)
         encode = encoder(_id, sender, msg_t, op, True)
-        # await mssg_r.edit("`Waiting For Encoding To Complete`")
+        await mssg_r.edit("`Waiting For Encoding To Complete`")
         await encode.start(cmd)
         await encode.callback(dl, out, msg_t, sender_id, stime=_set)
         stdout, stderr = await encode.await_completion()
