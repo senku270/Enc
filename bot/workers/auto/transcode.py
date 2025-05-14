@@ -229,7 +229,7 @@ async def thing():
                 raise (AlreadyDl)
 
             sdt = time.time()
-            await mssg_r.edit("`Waiting for download to complete.`")
+            # await mssg_r.edit("`Waiting for download to complete.`")
             download = downloader(
                 sender_id, op, _id, uri=einfo.uri, dl_info=True, qbit=einfo.qbit
             )
