@@ -675,6 +675,7 @@ async def get_codec(file="ffmpeg.txt"):
             "720": "720p",
             "1080": "1080p",
             "x264": "AVC",
+            "hevc_nvenc": "HEVC2"
             "x265": "HEVC",
             "libsvtav1": "AV1",
             "svt_av1": "AV1",
