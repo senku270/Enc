@@ -4,6 +4,7 @@
 
 __Still in beta…__
 
+IG THIS BRANCH WILL BE DEVELOPED ON GITLAB OR CODEVERG 
 ### Variables
 
 ___(For local/vps deployment rename [.env.sample](.env.sample) to .env and edit with your variable)___
