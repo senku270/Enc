@@ -103,7 +103,6 @@ async def onrestart():
 
 async def onstart():
     try:
-        await start_rpc()
         for i in conf.OWNER.split():
             try:
                 await tele.send_message(int(i), f"**I'm {enquip()} {enmoji()}**")
@@ -119,6 +118,7 @@ async def onstart():
             await tele.send_message(
                 dev,
                 f"**Aria2:** `{'Online' if _bot.sas else 'Offline/Not_ready'}`"
+                f"\n**Qbit:** `{'Online' if _bot.sqs else 'Offline/Not_ready'}`",
             )
         except Exception:
             await logger(Exception)
@@ -142,10 +142,13 @@ async def on_termination():
     # More cleanup code?
     exit(0)
 
+
 async def on_startup():
-    try: 
-        asyncio.create_task(start_rpc())
+    try:
+        scheduler.start()
         asyncio.create_task(autostat())
+        asyncio.create_task(start_rpc())
+        asyncio.create_task(start_qbit())
         loop = asyncio.get_running_loop()
         for signame in {"SIGINT", "SIGTERM", "SIGABRT"}:
             loop.add_signal_handler(
