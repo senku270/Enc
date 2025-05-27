@@ -752,8 +752,6 @@ async def pencode(message, args=None, sender_id=None, flag=None):
                 message,
                 "**Pm me with files to encode instead\nOR\nSend** `/groupenc on` **to turn on group encoding!**\n__This message will self destruct in 10 seconds__",
             )
-        if not (user_is_allowed(chat_id) or user_is_allowed(sender_id)):
-            return await message.delete()
         if message.document:
             if message.document.mime_type not in video_mimetype:
                 return
