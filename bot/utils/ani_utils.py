@@ -635,7 +635,7 @@ async def custcap(
 
         caption = f"`S{sn} `"
         if epi:
-            caption += f"`- E{epi}`"
+            caption += f"`- E{epi} `"
         if ver:
             caption += f"` V2`"
             if not epi:
@@ -643,7 +643,7 @@ async def custcap(
         if epi:
             caption += ""
         if title:
-            caption += f"` {title}`"
+            caption += f"`{title}`"
         if cap_info and mi:
             cap_info = cap_info.format(**locals())
             caption += f"**{ccd} Type:** [{cap_info.strip()}]({mi})"
