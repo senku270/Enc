@@ -632,7 +632,7 @@ async def custcap(
         if file_exists(out):
             crc32s = await crc32(out)
             mi = await info(out)
-        caption = f"`{Ssn} `"
+        caption = f"`{sn} `"
         if epi:
             caption += f"`- E{epi} `"
         if ver:
