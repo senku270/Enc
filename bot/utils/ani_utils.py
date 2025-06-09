@@ -643,8 +643,8 @@ async def custcap(
             caption += ""
         if title:
             caption += f"`{title}`"
-        if mi:
-            caption += f"` {mi}`"
+        if cap_info:
+            caption += f"` {cap_info}`"
         if not r_is_end and ri:
             caption += f"` {ri}`"
         if epi == te or r_is_end:
