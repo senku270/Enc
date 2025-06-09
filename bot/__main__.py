@@ -120,7 +120,8 @@ def command(commands: list, prefixes: list = ["/"]):
     for command, prefix in itertools.zip_longest(commands, prefixes, fillvalue="/"):
         if cmd_suffix:
             command += cmd_suffix
-        pattern += rf"{prefix}{command}(?:@{me.username})?(?!\S)|"
+        bot_username = me.username if me and me.username else ""
+pattern += rf"{prefix}{command}(?:@{bot_username})?(?!\S)|"
     return pattern.rstrip("|")
 
 
