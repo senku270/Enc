@@ -374,7 +374,7 @@ async def parse(
         if sn and sn.startswith("0"):
             sn = str(int(sn))
         if sn == "1":
-            sn = None
+            sn = S1
         # release group
         rg = parsed.get("release_group")
         # release information
@@ -496,7 +496,7 @@ async def dynamicthumb(name, thum="thumb2.jpg", anilist=True, _filter=None):
         if sn and sn.startswith("0"):
             sn = str(int(sn))
         if sn == "1":
-            sn = None
+            sn = S1
         # release group
         rg = parsed.get("release_group")
 
@@ -580,7 +580,7 @@ async def custcap(
         if sn and sn.startswith("0"):
             sn = str(int(sn))
         if sn == "1":
-            sn = None
+            sn = S1
         # release group
         rg = parsed.get("release_group")
         # release information
