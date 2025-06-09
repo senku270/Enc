@@ -633,47 +633,47 @@ async def custcap(
             crc32s = await crc32(out)
             mi = await info(out)
 
-        caption = f"**{ccd} Title:** `{title}`\n"
+        caption = f"`S{sn} `"
         if epi:
-            caption += f"**{ccd} Episode:** `{epi}`"
+            caption += f"`- E{epi}`"
         if ver:
-            caption += f" (v{ver})"
+            caption += f"` V2`"
             if not epi:
-                caption += "\n"
+                caption += ""
         if epi:
-            caption += "\n"
-        if sn:
-            caption += f"**{ccd} Season:** `{sn}`\n"
+            caption += ""
+        if title:
+            caption += f"` {title}`"
         if cap_info and mi:
             cap_info = cap_info.format(**locals())
             caption += f"**{ccd} Type:** [{cap_info.strip()}]({mi})"
         elif cap_info:
             cap_info = cap_info.format(**locals())
-            caption += f"**{ccd} Type:** `{cap_info.strip()}`"
+            caption += f"` {ccd}``{cap_info.strip()}`"
         if not r_is_end and ri:
-            caption += f" `{ri}`"
+            caption += f"` {ri}`"
         if epi == te or r_is_end:
-            caption += " **[END]**\n"
+            caption += "` [END]`"
         else:
-            caption += "\n"
+            caption += ""
         if et:
-            caption += f"**{ccd} Episode Title:** `{et}`\n"
+            caption += f"` {et}`"
         if codec:
-            caption += f"**🌟:** `{codec}`"
+            caption += f"` {codec}`"
             if sor:
-                caption += f" `[{sor}]`"
-            caption += "\n"
+                caption += f"` [{sor}]`"
+            caption += ""
         if encoder:
             encr = encoder.replace("@", "", 1)
-            caption += f"**{ccd} Encoder:** `{encr}`\n"
-        caption += f"**{ccd} CRC32:** `[{crc32s}]`\n"
-        caption += f"**🔗 {conf.C_LINK}**"
+            caption += f"** `{encr}`"
+        caption += f" `[{crc32s}]`"
+        caption += f" {conf.C_LINK}"
     except Exception:
         await logger(Exception)
         om = fname.split(".")[0]
         ot = om.split("@")[0]
-        caption = f"**{ot}**\n**🔗 {conf.C_LINK}**"
-    return caption
+        caption = f"`{ot}{conf.C_LINK}`"
+    return title
 
 
 async def simplecap(
