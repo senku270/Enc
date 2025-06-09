@@ -673,7 +673,7 @@ async def custcap(
         om = fname.split(".")[0]
         ot = om.split("@")[0]
         caption = f"`{ot}{conf.C_LINK}`"
-    return title
+    return caption
 
 
 async def simplecap(
