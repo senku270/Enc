@@ -699,7 +699,7 @@ async def simplecap(
         if sn and sn.startswith("0"):
             sn = str(int(sn))
         if sn == "1":
-            sn = None
+            sn = S1
         # release group
         rg = parsed.get("release_group")
         # release information
@@ -841,7 +841,7 @@ async def f_post(
         if sn and sn.startswith("0"):
             sn = str(int(sn))
         if sn == "1":
-            sn = None
+            sn = S1
 
         ar = txt_to_str(rename_file)
         tparse, title_ = await auto_rename(title, title, ar, general=True)
