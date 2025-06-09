@@ -108,10 +108,8 @@ async def get_me():
 loop = asyncio.get_event_loop()
 loop.run_until_complete(get_me())
 
-if me:
-    LOGS.info(f"@{me.username} is ready!")
-else:
-    LOGS.warning("Client is ready, but could not fetch username (me is None)")
+LOGS.info(f"@{me.username} is ready!")
+
 
 def command(commands: list, prefixes: list = ["/"]):
     while len(commands) < len(prefixes):
@@ -120,8 +118,7 @@ def command(commands: list, prefixes: list = ["/"]):
     for command, prefix in itertools.zip_longest(commands, prefixes, fillvalue="/"):
         if cmd_suffix:
             command += cmd_suffix
-        bot_username = me.username if me and me.username else ""
-pattern += rf"{prefix}{command}(?:@{bot_username})?(?!\S)|"
+        pattern += rf"{prefix}{command}(?:@{me.username})?(?!\S)|"
     return pattern.rstrip("|")
 
 
