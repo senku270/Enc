@@ -108,8 +108,10 @@ async def get_me():
 loop = asyncio.get_event_loop()
 loop.run_until_complete(get_me())
 
-LOGS.info(f"@{me.username} is ready!")
-
+if me:
+    LOGS.info(f"@{me.username} is ready!")
+else:
+    LOGS.warning("Client is ready, but could not fetch username (me is None)")
 
 def command(commands: list, prefixes: list = ["/"]):
     while len(commands) < len(prefixes):
