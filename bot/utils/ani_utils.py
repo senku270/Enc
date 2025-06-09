@@ -634,9 +634,9 @@ async def custcap(
             mi = await info(out)
         caption = f"`{title}`"
         if sn:
-            caption += f" sn "
+            caption += f" sn"
         if epi:
-            caption += f"`- E{epi} `"
+            caption += f"` - E{epi} `"
         if ver:
             caption += f"` V2`"
             if not epi:
