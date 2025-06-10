@@ -636,7 +636,7 @@ async def custcap(
         if sn:
             caption += f" S{sn}"
         if epi:
-            caption += f"` - E{epi} `"
+            caption += f"` - E{epi}`"
         if ver:
             caption += f"` V2`"
             if not epi:
