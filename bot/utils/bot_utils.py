@@ -670,10 +670,10 @@ async def get_codec(file="ffmpeg.txt"):
     __out = ""
     s_check.update(
         {
-            "360": "",
-            "480": "",
-            "720": "",
-            "1080": "",
+            "360": "@Mikasa_07",
+            "480": "@Mikasa_07",
+            "720": "@Mikasa_07",
+            "1080": "@Mikasa_07",
             "x264": "AVC",
             "hevc_nvenc": "HEVC2",
             "x265": "HEVC",
