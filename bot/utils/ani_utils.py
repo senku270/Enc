@@ -665,7 +665,7 @@ async def custcap(
         await logger(Exception)
         om = fname.split(".")[0]
         ot = om.split("@")[0]
-        caption = f"`{ot}{conf.C_LINK}`"
+        caption = f"`{ot}{conf.C_LINK}.mkv`"
     return caption
 
 
