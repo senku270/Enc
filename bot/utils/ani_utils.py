@@ -655,17 +655,19 @@ async def custcap(
             caption += f"` {et}`"
         if codec:
             caption += f"` {codec}`"
-        caption += ""
+            if sor:
+                caption += f" `[{sor}]`"
+            caption += ""
         if encoder:
             encr = encoder.replace("@", "", 1)
             caption += f"** `{encr}`"
         caption += f" `{crc32s}`"
-        caption += f" {conf.C_LINK}"
+        caption += f" {conf.C_LINK}.mkv"
     except Exception:
         await logger(Exception)
         om = fname.split(".")[0]
         ot = om.split("@")[0]
-        caption = f"`{ot}{conf.C_LINK}.mkv`"
+        caption = f"`{ot}{conf.C_LINK}`"
     return caption
 
 
